@@ -1,18 +1,18 @@
 {
-    "useDatabase"                                   :       false,
+    "useDatabase"                                   :       true,
     "appInDeveloping"                               :       true,
-    "instanceDatabase"                              :       "Mysqli",
+    "instanceDatabase"                              :       "AirTableDb",
     
-    "title"                                         :       "CrowPHP FRAMEWORK",
+    "title"                                         :       "Assignment by Resonance",
     
     "server"                                        :       "http://localhost/",
-    "defaultKeyRouting"                             :       "docs",
+    "defaultKeyRouting"                             :       "home",
     
     "dirModules"                                    :       "apps",
     "dirLayouts"                                    :       "layouts",
-    "mainHeaderLayout"                              :       "Header",
+    "mainHeaderLayout"                              :       "HeaderContainer",
     "mainFooterLayout"                              :       "Footer",
-    "dirProject"                                    :       "CrowPHP/",
+    "dirProject"                                    :       "resonance-project/",
     "dirLogs"                                       :       "logs",
     "dirMainFileJs"                                 :       "js",
     "dirMainFileCss"                                :       "css",

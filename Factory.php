@@ -3,6 +3,7 @@
 use lib\Config;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use lib\Session;
 
 /**
  * Auxiliary class for different functions within the framework, you can call this in anywhere
@@ -85,7 +86,7 @@ class Factory
     public static function setSession()
     {
 
-        self::$_session = new stdClass();
+        self::$_session = new Session();
 
         if (isset($_SESSION)) {
             foreach ($_SESSION as $key => $value) {
@@ -95,7 +96,7 @@ class Factory
     }
 
     /**
-     * @return stdClass get session var by key
+     * @return Session|null
      */
     public static function getSession()
     {

@@ -7,6 +7,7 @@ defined('_EXEC_APP') or die('Ups! access not allowed');
 
 use abstracts\Aorm;
 use stdClass;
+use Exception;
 
 /**
  * PHP version >= 5.4
@@ -29,8 +30,9 @@ class SampleModel extends Aorm
     private $properties = null;
 
     /**
-     * AnnotationModel constructor.
-     * @param stdClass|null $properties object { server : ??, user : ??, pass : ??, db : ??, port : ??, provider: ??}
+     * SampleModel constructor.
+     * @param stdClass|null $properties
+     * @throws Exception
      */
     public function __construct(stdClass $properties = null)
     {

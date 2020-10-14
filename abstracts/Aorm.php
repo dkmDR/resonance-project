@@ -140,7 +140,7 @@ abstract class Aorm
 
         $this->class = $class;
         $this->classAnnotation();
-        $this->getDbo($properties);
+        $this->setDbo($properties);
     }
 
     /**
@@ -247,7 +247,7 @@ abstract class Aorm
      * @throws Exception
      * @return void
      */
-    private function getDbo($properties)
+    private function setDbo($properties)
     {
 
         $dbo = null;
@@ -1707,6 +1707,13 @@ abstract class Aorm
 
         return $response;
 
+    }
+
+    /**
+     * @return null
+     */
+    public function getDbo(){
+        return $this->dbo;
     }
 
 }

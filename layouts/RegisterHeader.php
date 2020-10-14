@@ -1,0 +1,3 @@
+<?php
+    require_once 'Header.php';
+    require_once 'Preloader.php';

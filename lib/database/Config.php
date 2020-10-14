@@ -29,7 +29,7 @@ class Config
      * user database
      * @var string
      */
-    protected $_USER_ = "root";
+    protected $_USER_ = "key5ISeJESzHCtKot";
 
     /**
      * pass database
@@ -41,7 +41,7 @@ class Config
      * database connection
      * @var string
      */
-    protected $_DB_ = "examples";
+    protected $_DB_ = "appzeUDpZOqRjLPaJ";
 
     /**
      *
