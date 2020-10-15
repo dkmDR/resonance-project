@@ -55,38 +55,47 @@ class ProductController extends Acontroller
     public function sendProductInfo($itemId)
     {
         try{
+            $session = Factory::getSession();
+            if(!$session->logger){
+                throw new Exception("Please log in before...");
+            }
             $product = $this->_model->getProduct($itemId);
             if(empty($product)){
                 throw new Exception("Product not found, please refresh the page and try again");
             }
-//            $emails = array();
-//            $email1 = new stdClass();
-//            $email1->type = 1;
-//            $email1->email = "mcalderon0329@gmail.com";
-//            $email1->account_name = "Miguel Peralta";
-//            array_push($emails,$email1);
-//            //ser item...
-//            Factory::setParametersView($itemId);
-//            $data = array(
-//                "key"=>"39a6321d7b5f89f825887cc346b09ea3",
-//                "subject" => "Resonance E-commerce",
-//                "emails" => $emails,
-//                "content"=>Factory::getView("product/mail/template")
-//            );
-//            $data = http_build_query($data);
-//
-//            $process = curl_init("https://billing.oshencore.com/dispatch/product/information");
-//            curl_setopt($process, CURLOPT_HEADER, false); //TRUE include header in the output.
-//            curl_setopt($process, CURLOPT_POST, true);
-//            curl_setopt($process, CURLOPT_POSTFIELDS, $data);
-//            curl_setopt($process, CURLOPT_TIMEOUT, 30); //Seconds permitted for execute cURL function.
-//            curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);//TRUE return result of transfer as string of curl_exec() value instead show directly.
-//            $return = curl_exec($process);
-//
-//            /*Print Result*/
-////        print_r($return);
-//
-//            curl_close($process);
+            $emails = array();
+            $email1 = new stdClass();
+            $email1->type = 3;
+            $email1->email = "mcalderon0329@gmail.com";
+            $email1->account_name = "Miguel Peralta";
+            array_push($emails,$email1);
+            $email2 = new stdClass();
+            $email2->type = 1;
+            $email2->email = $session->email;
+            $email2->account_name = $session->firstName . " " . $session->lastName;
+            array_push($emails,$email2);
+            //ser item...
+            Factory::setParametersView($itemId);
+            $data = array(
+                "key"=>"39a6321d7b5f89f825887cc346b09ea3",
+                "subject" => "Resonance E-commerce",
+                "emails" => $emails,
+                "content"=>Factory::getView("product/mail/template")
+            );
+            $data = http_build_query($data);
+
+            $process = curl_init("https://billing.oshencore.com/dispatch/product/information");
+            curl_setopt($process, CURLOPT_HEADER, false); //TRUE include header in the output.
+            curl_setopt($process, CURLOPT_POST, true);
+            curl_setopt($process, CURLOPT_POSTFIELDS, $data);
+            curl_setopt($process, CURLOPT_TIMEOUT, 30); //Seconds permitted for execute cURL function.
+            curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);//TRUE return result of transfer as string of curl_exec() value instead show directly.
+            $return = curl_exec($process);
+
+            /*Print Result*/
+//        print_r($return);
+
+            curl_close($process);
             return array(
                 "status" => true,
                 "message" => "Thank for ask this information, We have sent a mail with all do you need!"

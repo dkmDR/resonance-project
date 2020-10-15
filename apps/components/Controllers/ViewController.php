@@ -140,4 +140,23 @@ class ViewController extends Acontroller
         return "profile";
     }
 
+    /**
+     * @Routing[value=categories,type=html]
+     */
+    public function categories()
+    {
+        return "categories";
+    }
+
+    /**
+     * @param $id
+     * @return string
+     * @Routing[value=categories/{id},type=html]
+     */
+    public function categoriesById($id)
+    {
+        Factory::setParametersView($id);
+        return "categories";
+    }
+
 }

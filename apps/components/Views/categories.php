@@ -1,3 +1,10 @@
+<?php
+    $typ = Factory::getParametersView();
+    $model = Factory::get()->getModel("api/Product");
+    $types = $model->getTypes();
+    $typeSelected = (!empty($typ)) ? $typ : $types[0];
+    $products = $model->getList($typeSelected);
+?>
 <main>
     <!--? slider Area Start-->
     <div class="slider-area ">
@@ -29,165 +36,28 @@
                 <div class="col-xl-7 col-lg-8 col-md-10">
                     <div class="section-tittle mb-50">
                         <h2>Shop with us</h2>
-                        <p>Browse from 230 latest items</p>
+                        <p>Showing <?php echo count($products) ?> product(s)</p>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <!--? Left content -->
-                <div class="col-xl-3 col-lg-3 col-md-4 ">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="small-tittle mb-45">
-                                <div class="ion"> <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="12px">
-                                        <path fill-rule="evenodd" fill="rgb(27, 207, 107)" d="M7.778,12.000 L12.222,12.000 L12.222,10.000 L7.778,10.000 L7.778,12.000 ZM-0.000,-0.000 L-0.000,2.000 L20.000,2.000 L20.000,-0.000 L-0.000,-0.000 ZM3.333,7.000 L16.667,7.000 L16.667,5.000 L3.333,5.000 L3.333,7.000 Z"></path>
-                                    </svg>
-                                </div>
-                                <h4>Filter Product</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Job Category Listing start -->
-                    <div class="category-listing mb-50">
-
-                        <div class="categories-wrapper">
-                            <div class="row">
-                                <div class="col-12">
-                                    <!-- Select State items start -->
-                                    <div class="select-categories">
-                                        <select name="select1">
-                                            <option value="">Type</option>
-                                            <option value="">Sofa</option>
-                                            <option value="">Table</option>
-                                            <option value="">Chair</option>
-                                            <option value="">Bead</option>
-                                            <option value="">Lightning</option>
-                                            <option value="">Decore</option>
-                                        </select>
-                                    </div>
-                                    <!--  Select State items End-->
-                                </div>
-                                <div class="col-12">
-                                    <!-- Select km items start -->
-                                    <div class="select-categories">
-                                        <select name="select2">
-                                            <option value="">Size</option>
-                                            <option value="">2.2ft</option>
-                                            <option value="">5.5ft</option>
-                                            <option value="">8.2ft</option>
-                                            <option value="">10.2ft</option>
-                                        </select>
-                                    </div>
-                                    <!--  Select km items End-->
-                                </div>
-                                <div class="col-12">
-                                    <!-- Select km items start -->
-                                    <div class="select-categories">
-                                        <select name="select3">
-                                            <option value="">Color</option>
-                                            <option value="">Whit</option>
-                                            <option value="">Green</option>
-                                            <option value="">Blue</option>
-                                            <option value="">Sky Blue</option>
-                                            <option value="">Gray</option>
-                                        </select>
-                                    </div>
-                                    <!--  Select km items End-->
-                                </div>
-                                <div class="col-12">
-                                    <!-- Select km items start -->
-                                    <div class="select-categories">
-                                        <select name="select4">
-                                            <option value="">Price range</option>
-                                            <option value="">$10 to $20</option>
-                                            <option value="">$20 to $30</option>
-                                            <option value="">$50 to $80</option>
-                                            <option value="">$100 to $120</option>
-                                            <option value="">$200 to $300</option>
-                                            <option value="">$500 to $600</option>
-                                        </select>
-                                    </div>
-                                    <!--  Select km items End-->
-                                </div>
-                            </div>
-
-
-
-                        </div>
-
-                        <!-- Range Slider Start -->
-                        <div class="range-slider mt-50">
-                            <div class="small-tittle small-tittle2">
-                                <h4>Price Range</h4>
-                            </div>
-                            <div class="range_item">
-                                <!-- <div id="slider-range"></div> -->
-                                <input type="text" class="js-range-slider" value="" />
-                                <div class="d-flex align-items-center">
-                                    <div class="price_text">
-                                        <p>Price :</p>
-                                    </div>
-                                    <div class="price_value d-flex justify-content-center">
-                                        <input type="text" class="js-input-from" id="amount" readonly />
-                                        <span>to</span>
-                                        <input type="text" class="js-input-to" id="amount" readonly />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Range Slider End -->
-
-                        <!-- Check box -->
-                        <div class="select-checkbox mt-30 mb-30">
-                            <div class="small-tittle">
-                                <h4>Latest Product</h4>
-                            </div>
-                            <label class="container">Any
-                                <input type="checkbox" >
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="container">Today
-                                <input type="checkbox" checked="checked active">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="container">Last 2 days
-                                <input type="checkbox">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="container">Last 5 days
-                                <input type="checkbox">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="container">Last 10 days
-                                <input type="checkbox">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="container">Last 15 days
-                                <input type="checkbox">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
-                        <!-- Check box /-->
-                    </div>
-                    <!-- Job Category Listing End -->
-                </div>
-                <!--?  Right content -->
-                <div class="col-xl-9 col-lg-9 col-md-8 ">
+               <!--?  Right content -->
+                <div class="col-xl-12 col-lg-12 col-md-12 ">
                     <!-- Count of Job list Start -->
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="count-job mb-35">
-                                <span>39, 782 Product found</span>
+                                <span>Products found</span>
                                 <!-- Select job items start -->
                                 <div class="select-cat">
                                     <span>Sort by</span>
-                                    <select name="select">
-                                        <option value="">Sofa</option>
-                                        <option value="">Table</option>
-                                        <option value="">Chair</option>
-                                        <option value="">Bead</option>
-                                        <option value="">Lightning</option>
-                                        <option value="">Decore</option>
+                                    <select id="select-product-by-type">
+                                        <?php
+                                            foreach ($types as $index => $type){
+                                                $checked = $type == $typeSelected ? "selected" : "";
+                                                echo '<option value="'.$type.'" '.$checked.'>'.$type.'</option>';
+                                            }
+                                        ?>
                                     </select>
                                 </div>
                                 <!--  Select job items End-->
@@ -199,111 +69,25 @@
                     <!--? New Arrival Start -->
                     <div class="new-arrival new-arrival3">
                         <div class="row">
-                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                <div class="single-new-arrival mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/popular1.png" alt="">
+                            <?php
+                                foreach ($products as $product){
+                                    $picture = $product->Picture;
+                                    $url = !empty($picture) ? $picture[0]->url : "#";
+                            ?>
+                                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                        <div class="single-new-arrival mb-50 text-center">
+                                            <div class="popular-img">
+                                                <img src="<?php echo $url ?>" alt="Product">
+                                            </div>
+                                            <div class="popular-caption">
+                                                <h3><a href="product/<?php echo $product->{'RecordID'} ?>"><?php echo $product->{'Name'} ?></a></h3>
+                                                <span>$<?php echo number_format($product->{'Unit Cost'},2) ?></span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="#">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                        <span>$367</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                <div class="single-new-arrival mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/popular5.png" alt="">
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="#">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                        <span>$367</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                <div class="single-new-arrival mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/popular6.png" alt="">
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="#">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                        <span>$367</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                <div class="single-new-arrival mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/popular7.png" alt="">
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="#">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                        <span>$367</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                <div class="single-new-arrival mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/popular8.png" alt="">
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="#">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                        <span>$367</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                <div class="single-new-arrival mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/popular9.png" alt="">
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="#">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                        <span>$367</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                <div class="single-new-arrival mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/popular2.png" alt="">
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="#">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                        <span>$367</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                <div class="single-new-arrival mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/popular3.png" alt="">
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="#">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                        <span>$367</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                <div class="single-new-arrival mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/popular4.png" alt="">
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="#">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                        <span>$367</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Button -->
-                        <div class="row justify-content-center">
-                            <div class="room-btn mt-20">
-                                <a href="catagori.html" class="border-btn">Browse More</a>
-                            </div>
+                            <?php
+                                }
+                            ?>
                         </div>
                     </div>
                     <!--? New Arrival End -->
@@ -365,3 +149,4 @@
     </div>
     <!--? Services Area End -->
 </main>
+<script type="text/javascript" src="apps/components/js/categories.js"></script>

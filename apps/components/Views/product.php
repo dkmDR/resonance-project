@@ -81,7 +81,7 @@
                         <h2>$<?php echo number_format($itemObject->unitCost) ?></h2>
                         <ul class="list">
                             <li>
-                                <a class="active" href="#">
+                                <a class="active" href="categories/<?php echo $itemObject->type ?>">
                                     <span>Type</span> : <?php echo $itemObject->type ?></a>
                             </li>
                             <li>

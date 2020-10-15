@@ -22,24 +22,9 @@
                                 <ul id="navigation">
                                     <li><a href="home">Home</a></li>
                                     <li><a href="products">Product</a></li>
-                                    <li><a href="about.html">About</a></li>
-                                    <li><a href="#">Page</a>
-                                        <ul class="submenu">
-                                            <li><a href="login.html">Login</a></li>
-                                            <li><a href="card.html">Card</a></li>
-                                            <li><a href="categories.html">Categories</a></li>
-                                            <li><a href="checkout.html">Checkout</a></li>
-                                            <li><a href="product_details.html">Product Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="blog.html">Blog</a>
-                                        <ul class="submenu">
-                                            <li><a href="blog.html">Blog</a></li>
-                                            <li><a href="blog_details.html">Blog Details</a></li>
-                                            <li><a href="elements.html">Elements</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="contact.html">Contact</a></li>
+                                    <li><a href="categories">Types</a></li>
+                                    <li><a href="profile">My Orders</a></li>
+                                    <li><a href="cart">Shopping Cart</a></li>
                                 </ul>
                             </nav>
                         </div>

@@ -63,6 +63,12 @@ $("document").ready(function(){
            });
        }
     });
+    $("body").on('click','.remove-from-cart',function(){
+       const item = $(this).attr("item");
+       removeFromCart(item);
+       chargeCart();
+       setShoppingCartProperties();
+    });
     //charge cart
     chargeCart();
 });

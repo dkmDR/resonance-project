@@ -25,6 +25,17 @@ function addToCart(item){
     //set parameter on DOM
     setShoppingCartProperties();
 }
+function removeFromCart(item){
+    let cart = localStorage.getItem(localSessionKey);
+    if(cart!=null) {
+        cart = JSON.parse(cart);
+        let index = getIndex(cart, item);
+        console.log("index=>",index);
+        cart.splice(index,1);
+        console.log("cart", cart)
+        localStorage.setItem(localSessionKey,JSON.stringify(cart));
+    }
+}
 /**
  *
  * @param cart

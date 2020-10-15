@@ -98,11 +98,15 @@ class CartController extends Acontroller
                             <td>
                                 <h5>$'.number_format($subTotal, 2).'</h5>
                             </td>
+                            <td>
+                                <button class="btn remove-from-cart" item="'.$item->item.'">REMOVE</button>
+                            </td>
                         </tr>';
             $total += $subTotal;
         }
         if(!empty($cart)) {
             $list .= '<tr>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td>
