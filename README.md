@@ -14,6 +14,18 @@ First, go to our public repository and download the project
 https://github.com/dkmDR/resonance-project
 ```
 
+Make sure to re-name the directory downloaded to 'resonance-project' in a case that you need it
+
+Also, you can use any names, but you must change a key on lib/Configuration.json file
+
+```
+{
+ dirProject: "resonance-project/"
+}
+```
+
+with a new name
+
 ### Installing
 
 Next, download and install the apache server of you prefer like: xampp or wamp server
@@ -38,8 +50,8 @@ You should be able to see your E-commerce running
 
 * [CrowPHP](https://crowphp.oshencore.com/) - The web framework used
 * [Airtable-php](https://github.com/sleiman/airtable-php) - Airtable Dependency
-* [Template](https://colorlib.com/wp/template/furn/) - Template used
+* [Colorlib](https://colorlib.com/wp/template/furn/) - Template used
 
 ## Authors
 
-* **Miguel Ant. Peralta Calderón** - [Oshencore](https://www.oshencore.com/)
+* **ING. Miguel Ant. Peralta Calderón** - [Oshencore](https://www.oshencore.com/)

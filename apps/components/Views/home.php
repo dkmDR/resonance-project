@@ -189,13 +189,13 @@
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                             <div class="single-instagram">
                                 <img src="assets/img//gallery/instra1.png" alt="" class="w-100">
-                                <a href="#"><i class="ti-instagram"></i></a>
+                                <a href="https://www.instagram.com/creationdriven/" target="_blank"><i class="ti-instagram"></i></a>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                             <div class="single-instagram">
                                 <img src="assets/img//gallery/instra2.png" alt="" class="w-100">
-                                <a href="#"><i class="ti-instagram"></i></a>
+                                <a href="https://www.instagram.com/creationdriven/" target="_blank"><i class="ti-instagram"></i></a>
                             </div>
                         </div>
                     </div>

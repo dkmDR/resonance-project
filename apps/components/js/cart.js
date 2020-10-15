@@ -2,33 +2,37 @@ $("document").ready(function(){
     const common = new Common();
     $("#proceed-checkout").click(function(e){
         e.preventDefault();
-        const cart = localStorage.getItem('resonanceShoppingCart');
-        if(cart!=null) {
-            $.ajax({
-                type: "POST",
-                url: "save/cart",
-                data: {cart: JSON.parse(cart)},
-                dataType: "json",
-                beforeSend: function () {
-                    common.getSpin("true");
-                },
-                success: function (resource) {
-                    if(resource.status) {
-                        localStorage.removeItem('resonanceShoppingCart');
-                        location.href = 'resonance/invoice/'+resource.order;
-                    } else {
-                        common.getSpin("false");
-                        common.warningAlert(resource.message)
-                    }
-                },
-                error: function () {
-                    common.getSpin("false");
-                    common.errorAlert(common.errorMessage());
+        common.confirmAlert("Are you sure?").then(value => {
+            if(value) {
+                const cart = localStorage.getItem('resonanceShoppingCart');
+                if (cart != null) {
+                    $.ajax({
+                        type: "POST",
+                        url: "save/cart",
+                        data: {cart: JSON.parse(cart)},
+                        dataType: "json",
+                        beforeSend: function () {
+                            common.getSpin("true");
+                        },
+                        success: function (resource) {
+                            if (resource.status) {
+                                localStorage.removeItem('resonanceShoppingCart');
+                                location.href = 'resonance/invoice/' + resource.order;
+                            } else {
+                                common.getSpin("false");
+                                common.warningAlert(resource.message)
+                            }
+                        },
+                        error: function () {
+                            common.getSpin("false");
+                            common.errorAlert(common.errorMessage());
+                        }
+                    });
+                } else {
+                    common.warningAlert("Warning", "Your cart is empty");
                 }
-            });
-        } else {
-            common.warningAlert("Warning","Your cart is empty");
-        }
+            }
+        });
     });
     $("body").on("click",".input-number-decrement",function(){
         const inputNumber = $(this).siblings(".input-number");
@@ -39,6 +43,7 @@ $("document").ready(function(){
                 code: inputNumber.attr("id"),
                 qty: qty
             });
+            chargeCart();
         } else {
             common.warningAlert("Qty must be higher than 0");
             inputNumber.val(1);
@@ -52,16 +57,24 @@ $("document").ready(function(){
             code: inputNumber.attr("id"),
             qty: qty
         });
+        chargeCart();
     });
     $("body").on("blur",".input-number",function (){
         const value = $(this).val();
-       if(isNaN(value)){
-           $(this).val(1);
+       if(!isNaN(value)){
            addToCart({
                code: $(this).attr("id"),
-               qty: 1
+               qty: value
            });
+           chargeCart();
+           return;
        }
+        $(this).val(1);
+        addToCart({
+            code: $(this).attr("id"),
+            qty: 1
+        });
+        chargeCart();
     });
     $("body").on('click','.remove-from-cart',function(){
        const item = $(this).attr("item");

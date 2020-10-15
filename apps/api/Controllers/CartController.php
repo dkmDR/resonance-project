@@ -81,7 +81,9 @@ class CartController extends Acontroller
                                         <img src="'.$url.'" alt="" />
                                     </div>
                                     <div class="media-body">
-                                        <p>'.$product->{'Name'}.'</p>
+                                        <a href="product/'.$item->item.'">
+                                            <p>'.$product->{'Name'}.'</p>
+                                        </a>
                                     </div>
                                 </div>
                             </td>
