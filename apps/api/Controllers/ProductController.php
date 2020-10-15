@@ -74,6 +74,11 @@ class ProductController extends Acontroller
             $email2->email = $session->email;
             $email2->account_name = $session->firstName . " " . $session->lastName;
             array_push($emails,$email2);
+            $email3 = new stdClass();
+            $email3->type = 2;
+            $email3->email = "techpirates@resonance.nyc";
+            $email3->account_name = "Techpirates";
+            array_push($emails,$email3);
             //ser item...
             Factory::setParametersView($itemId);
             $data = array(

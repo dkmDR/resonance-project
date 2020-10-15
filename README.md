@@ -16,7 +16,7 @@ https://github.com/dkmDR/resonance-project
 
 Make sure to re-name the directory downloaded to 'resonance-project' in a case that you need it
 
-Also, you can use any names, but you must change a key on lib/Configuration.json file
+Also, you can use any name, but you must change a key on lib/Configuration.json file
 
 ```
 {
