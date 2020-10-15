@@ -147,6 +147,9 @@ class AirTableDb extends \lib\database\Config implements Idatabase
     public function getArrayList($query)
     {
         // TODO: Implement getArrayList() method.
+        return $this->_airTable->getContent( $query["table"]."/".$query["id"], false, [
+            $query['relation']
+        ] );
     }
 
     public function getRowArrayList($query)
@@ -157,8 +160,7 @@ class AirTableDb extends \lib\database\Config implements Idatabase
     public function insert(array $values, $table, $id)
     {
         // TODO: Implement insert() method.
-        $newRecord = $this->_airTable->saveContent($table,$values);
-        return $newRecord;
+        return $this->_airTable->saveContent($table,$values);
     }
 
     public function insertObject(\stdClass $values, $table, $id = '')
@@ -174,6 +176,7 @@ class AirTableDb extends \lib\database\Config implements Idatabase
     public function update(array $values, $table, $filters)
     {
         // TODO: Implement update() method.
+        return $this->_airTable->updateContent($table."/".$filters,$values);
     }
 
     public function updateObject(\stdClass $values, $table, $filters)

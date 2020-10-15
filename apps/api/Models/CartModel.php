@@ -55,4 +55,86 @@ class CartModel extends Aorm
         $this->properties = $properties;
     }
 
+    /**
+     * @param array $values
+     * @return mixed
+     */
+    public function saveClientOrder(array $values){
+        return $this->getDbo()->insert($values,"Client Orders","Name");
+    }
+
+    /**
+     * @param array $values
+     * @return mixed
+     */
+    public function saveClientOrderDetail(array $values){
+        return $this->getDbo()->insert($values,"Order Line Items","Name");
+    }
+
+    /**
+     * @param $no
+     * @return mixed
+     */
+    public function checkOrder($no){
+        return $this->getDbo()->getRowObjectList(array(
+            "table"=>"Client Orders",
+            "field"=>"Order Number",
+            "value"=>$no
+        ));
+    }
+
+    /**
+     * @param $itemId
+     * @param $values
+     * @return mixed
+     */
+    public function updateProductStock($itemId,$values){
+        return $this->getDbo()->update($values,"Furniture",$itemId);
+    }
+
+    /**
+     * @param $invoiceKey
+     * @param $values
+     * @return mixed
+     */
+    public function updateClientKeyHeader($invoiceKey,$values){
+        return $this->getDbo()->update($values,"Client Orders",$invoiceKey);
+    }
+
+    /**
+     * @param $no
+     * @return mixed
+     */
+    public function getClientOrder($no){
+        return $this->getDbo()->getRowObjectList(array(
+            "table"=>"Client Orders",
+            "field"=>"clientId",
+            "value"=>$no
+        ));
+
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getClientOrderDetail($id){
+        $arr = array(
+            "table"=>"Order Line Items",
+            "filters" => array("filterByFormula" => "AND(RECORD_ID()='$id')")
+        );
+        return $this->getDbo()->getObjectList($arr);
+    }
+
+    /**
+     * @param $email
+     * @return mixed
+     */
+    public function getMyOrders($email){
+        $arr = array(
+            "table"=>"Client Orders",
+            "filters" => array("filterByFormula" => "AND(userEmail='$email')")
+        );
+        return $this->getDbo()->getObjectList($arr);
+    }
 }

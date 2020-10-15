@@ -21,12 +21,20 @@ $(document).ready(function (){
     });
     $("#add-product-to-cart").click(function (e){
         e.preventDefault();
+        common.getSpin("true");
+        const qty = parseInt($("#product-qty").val());
+        if(isNaN(qty)){
+            common.getSpin("false");
+            common.warningAlert("Warning","Qty is not valid");
+            return;
+        }
         const object = {
             code: $("#send-data").val(),
             qty: $("#product-qty").val()
         };
         addToCart(object);
         $("#product-qty").val(1);
+        location.href = "cart";
     });
     $("#decrement").click(function(){
         let qty = parseInt($("#product-qty").val())-1;

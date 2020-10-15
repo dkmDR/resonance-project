@@ -4,6 +4,8 @@ $(document).ready(function(){
        e.preventDefault();
        common.confirmAlert("Confirmation","Are you sure to get out?").then(value => {
            if(value){
+               localStorage.removeItem('resonanceShoppingCart');
+               common.getSpin("true");
                location.href = "logout";
            }
        });

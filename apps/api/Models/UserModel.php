@@ -64,6 +64,22 @@ class UserModel extends Aorm
     }
 
     /**
+     * @param array $values
+     * @return mixed
+     */
+    public function saveClient(array $values){
+        return $this->getDbo()->insert($values,"Clients","Name");
+    }
+
+    /**
+     * @param $clientKey
+     * @param $values
+     * @return mixed
+     */
+    public function updateClientKey($clientKey,$values){
+        return $this->getDbo()->update($values,"Clients",$clientKey);
+    }
+    /**
      * @param $email
      * @return mixed
      */
@@ -113,5 +129,30 @@ class UserModel extends Aorm
             "filters" => array("filterByFormula" => "AND(username='$credential',Password = '$password')")
         );
         return $this->getDbo()->getObjectList($arr);
+    }
+
+    /**
+     * @param $username
+     * @return mixed
+     */
+    public function getClient($username){
+        $username = trim(strtolower($username));
+        return $this->getDbo()->getRowObjectList(array(
+            "table"=>"Clients",
+            "field"=>"Users",
+            "value"=>$username
+        ));
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getClientByRecord($id){
+        return $this->getDbo()->getRowObjectList(array(
+            "table"=>"Clients",
+            "field"=>"Notes",
+            "value"=>$id
+        ));
     }
 }

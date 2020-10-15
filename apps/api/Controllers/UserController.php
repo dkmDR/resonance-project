@@ -55,13 +55,18 @@ class UserController extends Acontroller
      */
     public function save(array $form = array())
     {
+        $password = $this->_model->getSerializeFormModelValueByKey($form,"password");
+        $firstName = trim(ucfirst($this->_model->getSerializeFormModelValueByKey($form,"first_name")));
+        $lastName = trim(ucfirst($this->_model->getSerializeFormModelValueByKey($form,"last_name")));
+        $email = trim(strtolower( $this->_model->getSerializeFormModelValueByKey($form,"email") ));
+        $userName = trim(strtolower( $this->_model->getSerializeFormModelValueByKey($form,"user_name") ));
         $values = array(
 //            "key" => $this->_model->getSerializeFormModelValueByKey($form,"email"),
-            "Password" => $this->_model->getSerializeFormModelValueByKey($form,"password"),
-            "First Name" => $this->_model->getSerializeFormModelValueByKey($form,"first_name"),
-            "Last Name" => $this->_model->getSerializeFormModelValueByKey($form,"last_name"),
-            "email" => trim(strtolower( $this->_model->getSerializeFormModelValueByKey($form,"email") )),
-            "username" => trim(strtolower( $this->_model->getSerializeFormModelValueByKey($form,"user_name") ))
+            "Password" => $password,
+            "First Name" => $firstName,
+            "Last Name" => $lastName,
+            "email" => $email,
+            "username" => $userName
         );
         try{
             $this->valid((object)$values);
@@ -70,6 +75,15 @@ class UserController extends Acontroller
             if(empty($key["id"])){
                 throw new Exception("User could not be registered, please refresh the page and try again");
             }
+            $clientValues = array(
+                "Name" => $firstName . " " . $lastName,
+                "Users" => $userName
+            );
+            $clientKey = $this->_model->saveClient($clientValues);
+            if(empty($clientKey["id"])){
+                throw new Exception("Client info, could not be save...");
+            }
+            $this->_model->updateClientKey($clientKey["id"],array("Notes"=>$clientKey["id"]));
             return array(
                 "code" => 200,
                 "message" => "User has been registered "

@@ -52,7 +52,7 @@
                                             <a href="login" class="account-btn" target="_blank">My Account</a>
                                     <?php } else {
                                     ?>
-                                            <a href="#" class="account-btn" style="padding-right: 0 !important;">Welcome back, <?php echo ucwords( $session->firstName . " " . $session->lastName ) ?></a>
+                                            <a href="profile" class="account-btn" style="padding-right: 0 !important;">Welcome back, <?php echo ucwords( $session->firstName . " " . $session->lastName ) ?></a>
                                     <?php
                                     } ?>
                                 </li>

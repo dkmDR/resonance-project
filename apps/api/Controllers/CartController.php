@@ -9,7 +9,9 @@ use abstracts\Aorm;
 use abstracts\Acontroller;
 use api\Models\CartModel;
 use api\Models\ProductModel;
+use api\Models\UserModel;
 use Exception;
+use Factory;
 
 /**
  *
@@ -37,6 +39,10 @@ class CartController extends Acontroller
      */
     private $_product_model = null;
     /**
+     * @var null|UserModel
+     */
+    private $_client_model = null;
+    /**
      * CartController constructor.
      * @param Aorm $model
      * @throws Exception
@@ -50,6 +56,7 @@ class CartController extends Acontroller
         //set model
         $this->_model = $model;
         $this->_product_model = $this->getModel("api/Product");
+        $this->_client_model = $this->getModel("api/User");
     }
 
     /**
@@ -84,7 +91,7 @@ class CartController extends Acontroller
                             <td>
                                 <div class="product_count">
                                     <span class="input-number-decrement"> <i class="ti-minus"></i></span>
-                                    <input class="input-number" type="text" value="'.$item->qty.'" min="0" max="10">
+                                    <input class="input-number" type="text" value="'.$item->qty.'" min="0" max="10" id="'.$item->item.'">
                                     <span class="input-number-increment"> <i class="ti-plus"></i></span>
                                 </div>
                             </td>
@@ -109,6 +116,128 @@ class CartController extends Acontroller
         return array(
             "list" => $list
         );
+    }
+
+    /**
+     * @return string[]
+     * @Routing[value=get/my/orders]
+     */
+    public function getOrders(){
+        $session = Factory::getSession();
+        $orders = $this->_model->getMyOrders($session->email);
+        $list = '';
+        foreach ($orders as $item){
+            $item = (object) $item;
+            $link = "resonance/invoice/" . $item->{'clientId'};
+            $button = "<a href='".$link."' class='btn primary' target='_blank' style='background-color: #1f2b7b !important;'>VIEW ORDER</a>";
+            $list .= '<tr>
+                            <td>                                
+                                <h5>'.$item->{'Order Number'}.'</h5>
+                            </td>
+                            <td>                                
+                                <h5>'.$item->{'Name'}.'</h5>
+                            </td>
+                            <td>
+                                <h5>'.$item->{'Fulfill By'}.'</h5>
+                            </td>
+                            <td>
+                                <h5>$'.number_format($item->{'Order Total Cost'}, 2).'</h5>
+                            </td>
+                            <td>
+                                '.$button.'
+                            </td>
+                        </tr>';
+        }
+        return array(
+            "list" => $list
+        );
+    }
+
+    /**
+     * @param array $cart
+     * @return array
+     * @Routing[value=save/cart]
+     */
+    public function save(array $cart = array()){
+        try{
+            $session = Factory::getSession();
+            if(!$session->logger){
+                throw new Exception("Your session has been, please enter again");
+            }
+            if(empty($cart)){
+                throw new Exception("Your cart is empty");
+            }
+
+            $setRandom = true;
+            while($setRandom){
+                $randomOrder = rand(100,1000);
+                $resource = $this->_model->checkOrder($randomOrder);
+                if(empty($resource)){
+                    break;
+                }
+            }
+            $totalCost = 0;
+            foreach ($cart as $index => $item){
+                $item = (object) $item;
+                if((int)$item->qty<1){
+                    throw new Exception("Please enter a valid quantity for all items");
+                }
+                $resource = $this->_product_model->getProduct($item->item);
+                //valid
+                if($item->qty>$resource->{'Units In Store'}){
+                    throw new Exception("Sorry, we have just " . $resource->{'Units In Store'} . " in stock of this item " . $resource->{'Name'});
+                }
+                $cart[$index]["id"] = $resource->{'RecordID'};
+                $cart[$index]["name"] = $resource->{'Name'};
+                $cart[$index]["price"] = $resource->{'Unit Cost'};
+                $cart[$index]["stock"] = $resource->{'Units In Store'};
+                $cart[$index]["subTotal"] = round( ($resource->{'Unit Cost'} * $item->qty), 2 );
+                $totalCost += $cart[$index]["subTotal"];
+            }
+            $clientObject = $this->_client_model->getClient($session->username);
+            $clientOrder = array(
+                "Client" => array($clientObject->{'Notes'}),
+                "Order Number" => (string) $randomOrder,
+                "Fulfill By" => date("m/d/Y"),
+                "userEmail" => $session->email
+            );
+            $res = $this->_model->saveClientOrder($clientOrder);
+            if(empty($res["id"])){
+                throw new Exception("Client order could not be issued, please refresh an try again");
+            }
+            $orderKey = $res["id"];
+            $updateResource = $this->_model->updateClientKeyHeader($orderKey,array("clientId"=>$orderKey));
+            if(empty($updateResource["id"])){
+                throw new Exception("Client order could not be issued, please refresh an try again");
+            }
+            foreach ($cart as $item){
+                $item = (object) $item;
+                $values = array(
+                    "Furniture Item" => array($item->id),
+                    "Quantity" => (int) $item->qty,
+                    "Belongs to Order" => array($orderKey)
+                );
+                $res = $this->_model->saveClientOrderDetail($values);
+                if(empty($res["id"])){
+                    throw new Exception("Client order detail could not be save, please refresh and try again");
+                }
+                $restStock = $item->stock - $item->qty;
+                $updateResource = $this->_model->updateProductStock($item->id,array("Units In Store"=>$restStock));
+                if(empty($updateResource["id"])){
+                    throw new Exception("Stock could not be updated, please refresh and try again");
+                }
+            }
+            return array(
+                "status" => true,
+                "order" => $orderKey,
+                "message" => "Thank for your order, we send your order as soon as possible..."
+            );
+        } catch (Exception $e){
+            return array(
+                "status" => false,
+                "message" => $e->getMessage()
+            );
+        }
     }
 
 }

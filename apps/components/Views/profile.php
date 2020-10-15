@@ -13,11 +13,11 @@
                     <div class="row">
                         <div class="col-xl-6 col-lg-8 col-md-8">
                             <div class="hero__caption hero__caption2">
-                                <h1 data-animation="fadeInUp" data-delay=".4s" >Cart List</h1>
+                                <h1 data-animation="fadeInUp" data-delay=".4s" >Your orders</h1>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="home">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="#">Cart List</a></li>
+                                        <li class="breadcrumb-item"><a href="#">Your orders</a></li>
                                     </ol>
                                 </nav>
                             </div>
@@ -36,20 +36,17 @@
                     <table id="table-cart" class="table">
                         <thead>
                         <tr>
-                            <th scope="col">Product</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
+                            <th scope="col">Order</th>
+                            <th scope="col">Client</th>
+                            <th scope="col">Date</th>
                             <th scope="col">Total</th>
+                            <th scope="col">Voucher</th>
                         </tr>
                         </thead>
                         <tbody>
-                            <tr><td colspan="4" style="text-align: center;">PLEASE WAIT, WE'RE CHARGING THE DATA...</td></tr>
+                        <tr><td colspan="4" style="text-align: center;">PLEASE WAIT, WE'RE CHARGING THE DATA...</td></tr>
                         </tbody>
                     </table>
-                    <div class="checkout_btn_inner float-right">
-                        <a class="btn" href="products">Continue Shopping</a>
-                        <a class="btn checkout_btn" href="#" id="proceed-checkout">Proceed to checkout</a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -108,4 +105,4 @@
     </div>
     <!--? Services Area End -->
 </main>
-<script type="text/javascript" src="apps/components/js/cart.js"></script>
+<script type="text/javascript" src="apps/components/js/profile.js"></script>

@@ -120,4 +120,24 @@ class ViewController extends Acontroller
         return "mailTemplate";
     }
 
+    /**
+     * @param $invoice
+     * @return string
+     * @Layouts[head=EmptyHead,foot=EmptyFoot]
+     * @Routing[value=resonance/invoice/{invoice},type=html]
+     */
+    public function invoice($invoice)
+    {
+        Factory::setParametersView($invoice);
+        return "invoice";
+    }
+
+    /**
+     * @Routing[value=profile,type=html]
+     */
+    public function profile()
+    {
+        return "profile";
+    }
+
 }

@@ -37,9 +37,6 @@ function newInCart(cart,item){
     });
     localStorage.setItem(localSessionKey,JSON.stringify(cart));
 }
-function deleteFromCart(){
-
-}
 /**
  *
  * @param index
@@ -47,8 +44,9 @@ function deleteFromCart(){
  * @param item
  */
 function updateFromCart(index,cart,item){
-    const qty = parseInt(cart[index].qty);
-    cart[index].qty = qty + parseInt(item.qty);
+    // const qty = parseInt(cart[index].qty);
+    // cart[index].qty = qty + parseInt(item.qty);
+    cart[index].qty = parseInt(item.qty);
     localStorage.setItem(localSessionKey,JSON.stringify(cart));
 }
 /**
